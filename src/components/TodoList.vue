@@ -1,7 +1,7 @@
 <template>
   <!-- <h1> {{ msg }} </h1> -->
   <ul>
-    <li v-for="todo in sortedTodos" :key="todo.id">
+    <li v-for="todo in sortedTodos" :key="todo.id" :class="todo.id === selectedId && 'has-background-info'">
       {{ todo.message }}
     </li>
   </ul>
@@ -35,7 +35,8 @@ export default {
       todos: todos,
       nTodos: todos.length,
       selection: 0,
-      selectedId: 1,
+      selectedId: 3,
+      shit: true
     };
   },
   computed: {
@@ -45,7 +46,7 @@ export default {
       todosCopy.sort(sortByMessage)
       return todosCopy
     }
-  }
+  },
 };
 </script>
 
