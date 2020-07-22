@@ -9,8 +9,11 @@
           </li>
         </ul>
       </div>
-      <div class="control">
+      <div class="control has-icons-left">
         <input class="input" type="text" placeholder="Filter">
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+          </span>
       </div>
     </div>
   </section>
