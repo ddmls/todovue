@@ -2,20 +2,21 @@
   <div id="app">
     <section class="section">
       <div class="container">
-      <img alt="Vue logo" src="./assets/logo.png">
-      <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <div class="content">
+          <TodoList msg="Τι θα κάνω σήμερα"/>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoList from './components/TodoList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TodoList
   }
 }
 </script>
