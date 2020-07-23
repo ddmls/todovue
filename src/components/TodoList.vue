@@ -25,6 +25,8 @@
                 <input class="input" type="text"
                   v-model="todo.title"
                   @keyup.enter="editingId = null"
+                  @focus="undoTitle = todo.title"
+                  @keyup.esc="editingId = null; todo.title = undoTitle"
                 >
               </div>
             </template>
@@ -69,6 +71,7 @@ export default {
       selectedId: 3,
       editingId: null,
       filterBy: "",
+      undoTitle: null,
     };
   },
   computed: {
