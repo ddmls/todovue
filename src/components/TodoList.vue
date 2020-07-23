@@ -39,13 +39,6 @@ function testTodos() {
   ];
 }
 
-// function sortByMessage(a,b) {
-//   const [x,y] = [a.message, b.message]
-//   if (x<y) return -1
-//   if (x>y) return 1
-//   return 0
-// }
-
 export default {
   name: "TodoList",
   props: {
@@ -58,7 +51,6 @@ export default {
       nTodos: todos.length,
       selection: 0,
       selectedId: 3,
-      shit: true,
       filterBy: ""
     };
   },
