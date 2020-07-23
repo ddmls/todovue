@@ -5,7 +5,9 @@
 
       <div class="control has-icons-left">
         <input class="input" type="text" placeholder="Filter"
-          v-model="filterBy">
+          v-model="filterBy"
+          @keyup.esc="filterBy=''"
+        >
           <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
           </span>
@@ -13,7 +15,10 @@
 
       <div class="content">
         <ul>
-          <li v-for="todo in sortedTodos" :key="todo.id" :class="todo.id === selectedId && 'has-background-info'">
+          <li v-for="todo in sortedTodos" :key="todo.id" 
+            :class="todo.id === selectedId && 'has-background-info'"
+            @click="selectTodo(todo.id)"
+          >
             {{ todo.message }}
           </li>
         </ul>
@@ -44,7 +49,7 @@ export default {
   props: {
     msg: String
   },
-  data: function() {
+  data: function () {
     const todos = testTodos()
     return {
       todos: todos,
@@ -55,7 +60,7 @@ export default {
     };
   },
   computed: {
-    sortedTodos: function() {
+    sortedTodos: function () {
       let todosCopy = this.filterBy ? 
         this.todos.filter( a => a.message.indexOf(this.filterBy) != -1 ) : 
         this.todos.slice()
@@ -65,10 +70,15 @@ export default {
       return todosCopy
     }
   },
-  created: function() {
+  created: function () {
     this.compareSearch = new Intl.Collator('el', { usage: 'search', sensitivity: 'base'}).compare
     // this.compareSort = new Intl.Collator('el', { usage: 'sort', sensitivity: 'case'}).compare
     this.compareSort = new Intl.Collator().compare
+  },
+  methods: {
+    selectTodo: function (id) {
+      this.selectedId = id
+    }
   }
 };
 </script>
