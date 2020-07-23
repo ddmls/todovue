@@ -1,10 +1,19 @@
 <template>
-  <!-- <h1> {{ msg }} </h1> -->
-  <ul>
-    <li v-for="todo in sortedTodos" :key="todo.id" :class="todo.id === selectedId && 'has-background-info'">
-      {{ todo.message }}
-    </li>
-  </ul>
+  <section class="section">
+    <h1 class="title"> {{ msg }} </h1>
+    <div class="container">
+      <div class="content">
+        <ul>
+          <li v-for="todo in sortedTodos" :key="todo.id" :class="todo.id === selectedId && 'has-background-info'">
+            {{ todo.message }}
+          </li>
+        </ul>
+      </div>
+      <div class="control">
+        <input class="input" type="text" placeholder="Filter">
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>

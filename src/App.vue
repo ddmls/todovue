@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-    <section class="section">
-      <div class="container">
-        <div class="content">
-          <TodoList msg="Τι θα κάνω σήμερα"/>
-        </div>
-      </div>
-    </section>
+      <TodoList msg="Τι θα κάνω σήμερα"/>
   </div>
 </template>
 
