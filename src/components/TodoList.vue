@@ -18,8 +18,19 @@
           <li v-for="todo in sortedTodos" :key="todo.id" 
             :class="todo.id === selectedId && 'has-background-info'"
             @click="selectTodo(todo.id)"
+            @dblclick="editingId = todo.id"
           >
-            {{ todo.message }}
+            <template v-if="todo.id === editingId">
+              <div class="control">
+                <input class="input" type="text"
+                  v-model="todo.title"
+                  @keyup.enter="editingId = null"
+                >
+              </div>
+            </template>
+            <template v-else>
+              {{ todo.title }}
+            </template>
           </li>
         </ul>
       </div>
@@ -31,16 +42,16 @@
 <script>
 function testTodos() {
   return [
-    { id: 1, message: "Clean the house" },
-    { id: 2, message: "Walk the dog" },
-    { id: 3, message: "Eat food" },
-    { id: 4, message: "Sleep" },
-    { id: 5, message: "Φάε φαγητο" },
-    { id: 6, message: "Έλα ρε μεγάλε" },
-    { id: 7, message: "Εκείνο να πάρεις" },
-    { id: 8, message: "Σοβαρά μιλάμε τώρα" },
-    { id: 9, message: "έννοιες δεν έχω" },
-    { id: 10, message: "εάλλω η Πόλις" },
+    { id: 1, title: "Clean the house" },
+    { id: 2, title: "Walk the dog" },
+    { id: 3, title: "Eat food" },
+    { id: 4, title: "Sleep" },
+    { id: 5, title: "Φάε φαγητο" },
+    { id: 6, title: "Έλα ρε μεγάλε" },
+    { id: 7, title: "Εκείνο να πάρεις" },
+    { id: 8, title: "Σοβαρά μιλάμε τώρα" },
+    { id: 9, title: "έννοιες δεν έχω" },
+    { id: 10, title: "εάλλω η Πόλις" },
   ];
 }
 
@@ -56,17 +67,18 @@ export default {
       nTodos: todos.length,
       selection: 0,
       selectedId: 3,
-      filterBy: ""
+      editingId: null,
+      filterBy: "",
     };
   },
   computed: {
     sortedTodos: function () {
       let todosCopy = this.filterBy ? 
-        this.todos.filter( a => a.message.indexOf(this.filterBy) != -1 ) : 
+        this.todos.filter( a => a.title.indexOf(this.filterBy) != -1 ) : 
         this.todos.slice()
 
       // Assumes strings, needs a custom comparison function for numbers
-      todosCopy.sort( (a,b) => this.compareSort(a.message, b.message) )
+      todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
       return todosCopy
     }
   },
@@ -78,10 +90,17 @@ export default {
   methods: {
     selectTodo: function (id) {
       this.selectedId = id
+      if (this.editingId != this.selectedId) this.editingId = null
     }
   }
 };
 </script>
+
+<style scoped lang="scss">
+li {
+  user-select: none
+}
+</style>
 
 // <!-- Add "scoped" attribute to limit CSS to this component only -->
 // <style scoped lang="scss">
