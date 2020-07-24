@@ -19,14 +19,16 @@
           <li v-for="todo in sortedTodos" :key="todo.id" 
             :class="todo.id === selectedId && 'has-background-info'"
             @click="selectTodo(todo.id)"
-            @dblclick="editingId = todo.id"
+            @dblclick="editTodo(todo.id)"
           >
             <template v-if="todo.id === editingId">
               <div class="control">
                 <input class="input" type="text"
-                  v-model="todo.title"
+                  v-model.lazy="todo.title"
+                  ref="editBox"
                   @keyup.enter="editingId = null"
                   @focus="undoTitle = todo.title"
+                  @blur="editingId = null"
                   @keyup.esc="editingId = null; todo.title = undoTitle"
                 >
               </div>
@@ -124,7 +126,14 @@ export default {
   methods: {
     selectTodo: function (id) {
       this.selectedId = id
-      if (this.editingId != this.selectedId) this.editingId = null
+      // Handled by "blur" event?
+      // if (this.editingId != this.selectedId) this.editingId = null
+    },
+    editTodo: function (id) {
+      this.editingId = id
+      this.$nextTick(() => {
+        this.$refs.editBox[0].focus()
+      })
     }
   }
 };
