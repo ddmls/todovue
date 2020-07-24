@@ -4,14 +4,23 @@
     <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
     <div class="container">
 
-      <div class="control has-icons-left">
-        <input class="input" type="text" placeholder="Filter"
-          v-model="filterBy"
-          @keyup.esc="filterBy=''"
-        >
+      <div class="field has-addons">
+        <div class="control has-icons-left">
+          <input class="input" type="text" placeholder="Filter"
+            v-model="filterBy"
+            @keyup.esc="filterBy=''"
+          >
           <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
           </span>
+        </div>
+        <a class="control" @click="filterBy=''">
+          <button class="button">
+            <span class="icon is-small has-text-danger">
+              <i class="fas fa-ban"></i>
+            </span>
+          </button>
+        </a>
       </div>
 
       <div class="content">
