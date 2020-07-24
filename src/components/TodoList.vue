@@ -59,6 +59,29 @@ function testTodos() {
   ];
 }
 
+function caseFoldRemoveAccents(str) {
+  // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+  // Use uppercase to also handle final sigma
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .normalize("NFC")
+    .toLocaleUpperCase()
+}
+
+function filterTest(filter) {
+  // Split into words, remove extra spaces producing empty arrays
+  const filterWords = caseFoldRemoveAccents(filter).split(' ').filter(x => x)
+  return function(str) {
+    const caseFoldedStr = caseFoldRemoveAccents(str)
+    for (const word of filterWords) {
+      if (caseFoldedStr.indexOf(word) == -1)
+        return false
+    }
+    return true
+  }
+}
+
 export default {
   name: "TodoList",
   props: {
@@ -78,9 +101,13 @@ export default {
   },
   computed: {
     sortedTodos: function () {
-      let todosCopy = this.filterBy ? 
-        this.todos.filter( a => a.title.indexOf(this.filterBy) != -1 ) : 
-        this.todos.slice()
+      let todosCopy
+      if (this.filterBy) {
+        const f = filterTest(this.filterBy)
+        todosCopy = this.todos.filter( a => f(a.title) )
+      } else {
+        todosCopy = this.todos.slice()
+      }
 
       todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
       return todosCopy
@@ -92,6 +119,7 @@ export default {
     // console.log(new Intl.Collator().resolvedOptions())
     this.compareSort = new Intl.Collator().compare
     this.dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'full' })
+    // console.log(caseFoldRemoveAccents("  Ε! Αμάν ΠιΆ με αυτές τις πατάτες  "))
   },
   methods: {
     selectTodo: function (id) {
