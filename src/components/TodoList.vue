@@ -1,6 +1,7 @@
 <template>
   <section class="section">
     <h1 class="title"> {{ msg }} </h1>
+    <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
     <div class="container">
 
       <div class="control has-icons-left">
@@ -54,6 +55,7 @@ function testTodos() {
     { id: 8, title: "Σοβαρά μιλάμε τώρα" },
     { id: 9, title: "έννοιες δεν έχω" },
     { id: 10, title: "εάλλω η Πόλις" },
+    { id: 11, title: "don't do anything"}
   ];
 }
 
@@ -80,7 +82,6 @@ export default {
         this.todos.filter( a => a.title.indexOf(this.filterBy) != -1 ) : 
         this.todos.slice()
 
-      // Assumes strings, needs a custom comparison function for numbers
       todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
       return todosCopy
     }
@@ -88,7 +89,9 @@ export default {
   created: function () {
     this.compareSearch = new Intl.Collator('el', { usage: 'search', sensitivity: 'base'}).compare
     // this.compareSort = new Intl.Collator('el', { usage: 'sort', sensitivity: 'case'}).compare
+    // console.log(new Intl.Collator().resolvedOptions())
     this.compareSort = new Intl.Collator().compare
+    this.dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'full' })
   },
   methods: {
     selectTodo: function (id) {
