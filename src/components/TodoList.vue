@@ -33,6 +33,8 @@
           @end="drag=false">
           <div v-for="todo in sortedTodos" :key="todo.id" 
             @dblclick="editTodo(todo.id)"
+            class="box"
+            :class="todo.id === selectedId && 'has-background-info'"
           >
             <template v-if="todo.id === editingId">
               <div class="control">
@@ -47,10 +49,10 @@
               </div>
             </template>
             <template v-else>
-              <span :class="todo.id === selectedId && 'has-background-info'">
+              <span>
               {{ todo.title }}
               </span>
-              <a class="tag is-delete"></a>
+              <a class="delete"></a>
             </template>
           </div>
         </draggable>
@@ -178,9 +180,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-li {
-  user-select: none
-}
+// li {
+//   user-select: none
+// }
 </style>
 
 // <!-- Add "scoped" attribute to limit CSS to this component only -->
