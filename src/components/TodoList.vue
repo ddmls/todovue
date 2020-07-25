@@ -28,8 +28,9 @@
         <draggable
           v-model="sortedTodos"
           ghost-class="has-background-info-light"
+          animation="150"
           @start="drag=true"
-          @end="drag-false">
+          @end="drag=false">
           <div v-for="todo in sortedTodos" :key="todo.id" 
             @click="selectTodo(todo.id)"
             @dblclick="editTodo(todo.id)"
@@ -124,17 +125,22 @@ export default {
     };
   },
   computed: {
-    sortedTodos: function () {
-      let todosCopy
-      if (this.filterBy) {
-        const f = filterTest(this.filterBy)
-        todosCopy = this.todos.filter( a => f(a.title) )
-      } else {
-        todosCopy = this.todos.slice()
-      }
+    sortedTodos: {
+      get: function () {
+        let todosCopy
+        if (this.filterBy) {
+          const f = filterTest(this.filterBy)
+          todosCopy = this.todos.filter( a => f(a.title) )
+        } else {
+          todosCopy = this.todos.slice()
+        }
 
-      // todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
-      return todosCopy
+        // todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
+        return todosCopy
+      },
+      set: function (newValue) {
+        console.log(newValue)
+      }
     }
   },
   created: function () {
