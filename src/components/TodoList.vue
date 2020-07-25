@@ -47,7 +47,7 @@
         @choose="handleChoose"
         @start="drag=true"
         @end="drag=false">
-        <div v-for="todo in sortedTodos" :key="todo.id" 
+        <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
           @dblclick="editTodo(todo.id)"
           class="notification"
           :class="todo.id === selectedId && 'has-background-info'"
@@ -67,7 +67,7 @@
           <template v-else>
             <button 
               class="delete"
-              @click="deleteTodo"
+              @click="deleteTodo(index)"
             />
             <span>
             {{ todo.title }}
@@ -192,8 +192,8 @@ export default {
         this.$refs.editBox[0].focus()
       })
     },
-    deleteTodo: function () {
-      console.log("Click!")
+    deleteTodo: function (index) {
+      this.todos.splice(index, 1)
     },
     newTodo: function () {
       const newId = this.todos.length + 1 // Starting from 1
