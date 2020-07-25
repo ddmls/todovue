@@ -137,9 +137,7 @@ export default {
     const todos = testTodos()
     return {
       todos: todos,
-      nTodos: todos.length,
-      selection: 0,
-      selectedId: 3,
+      selectedId: null,
       editingId: null,
       filterBy: "",
       undoTitle: null,
