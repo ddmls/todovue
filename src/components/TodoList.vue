@@ -1,68 +1,76 @@
 <template>
-  <section class="section">
-    <h1 class="title"> {{ msg }} </h1>
-    <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
-    <div class="container">
+<div> <!-- Temporary fix for single root -->
 
-      <div class="field has-addons">
-        <div class="control has-icons-left">
-          <input class="input" type="text" placeholder="Filter"
-            v-model="filterBy"
-            @keyup.esc="filterBy=''"
-          >
-          <span class="icon is-small is-left">
-            <i class="fas fa-search"></i>
-          </span>
-        </div>
-        <a class="control" @click="filterBy=''">
-          <button class="button">
-            <span class="icon is-small has-text-danger">
-              <i class="fas fa-ban"></i>
-            </span>
-          </button>
-        </a>
-      </div>
-
-      <div class="content">
-        <draggable
-          v-model="sortedTodos"
-          ghost-class="has-background-info-light"
-          animation="150"
-          @choose="handleChoose"
-          @start="drag=true"
-          @end="drag=false">
-          <div v-for="todo in sortedTodos" :key="todo.id" 
-            @dblclick="editTodo(todo.id)"
-            class="notification"
-            :class="todo.id === selectedId && 'has-background-info'"
-          >
-            <template v-if="todo.id === editingId">
-              <div class="control">
-                <input class="input" type="text"
-                  v-model.lazy="todo.title"
-                  ref="editBox"
-                  @keyup.enter="editingId = null"
-                  @focus="undoTitle = todo.title"
-                  @blur="editingId = null"
-                  @keyup.esc="editingId = null; todo.title = undoTitle"
-                >
-              </div>
-            </template>
-            <template v-else>
-              <button 
-                class="delete"
-                @click="deleteTodo"
-              />
-              <span>
-              {{ todo.title }}
-              </span>
-            </template>
-          </div>
-        </draggable>
-      </div>
-
+  <header class="hero is-primary is-bold">
+    <div class="hero-body">
+        <h1 class="title"> {{ msg }} </h1>
+        <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
+      <div class="container"></div>
     </div>
+  </header>
+
+  <section class="section">
+
+    <div class="field has-addons">
+      <div class="control has-icons-left">
+        <input class="input" type="text" placeholder="Filter"
+          v-model="filterBy"
+          @keyup.esc="filterBy=''"
+        >
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+      <a class="control" @click="filterBy=''">
+        <button class="button">
+          <span class="icon is-small has-text-danger">
+            <i class="fas fa-ban"></i>
+          </span>
+        </button>
+      </a>
+    </div>
+
+    <div class="content">
+      <draggable
+        v-model="sortedTodos"
+        ghost-class="has-background-info-light"
+        animation="150"
+        @choose="handleChoose"
+        @start="drag=true"
+        @end="drag=false">
+        <div v-for="todo in sortedTodos" :key="todo.id" 
+          @dblclick="editTodo(todo.id)"
+          class="notification"
+          :class="todo.id === selectedId && 'has-background-info'"
+        >
+          <template v-if="todo.id === editingId">
+            <div class="control">
+              <input class="input" type="text"
+                v-model.lazy="todo.title"
+                ref="editBox"
+                @keyup.enter="editingId = null"
+                @focus="undoTitle = todo.title"
+                @blur="editingId = null"
+                @keyup.esc="editingId = null; todo.title = undoTitle"
+              >
+            </div>
+          </template>
+          <template v-else>
+            <button 
+              class="delete"
+              @click="deleteTodo"
+            />
+            <span>
+            {{ todo.title }}
+            </span>
+          </template>
+        </div>
+      </draggable>
+    </div>
+
   </section>
+
+</div>
 </template>
 
 <script>
