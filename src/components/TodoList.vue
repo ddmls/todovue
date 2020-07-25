@@ -24,8 +24,13 @@
       </div>
 
       <div class="content">
-        <ul>
-          <li v-for="todo in sortedTodos" :key="todo.id" 
+        <!-- BUG: v-model should be sortedTodos (computed) and not todos -->
+        <draggable
+          v-model="sortedTodos"
+          ghost-class="has-background-info-light"
+          @start="drag=true"
+          @end="drag-false">
+          <div v-for="todo in sortedTodos" :key="todo.id" 
             @click="selectTodo(todo.id)"
             @dblclick="editTodo(todo.id)"
           >
@@ -47,8 +52,8 @@
               </span>
               <a class="tag is-delete"></a>
             </template>
-          </li>
-        </ul>
+          </div>
+        </draggable>
       </div>
 
     </div>
@@ -95,10 +100,16 @@ function filterTest(filter) {
   }
 }
 
+import draggable from 'vuedraggable'
+// import camelCase from 'lodash/camelCase'
+
 export default {
   name: "TodoList",
   props: {
     msg: String
+  },
+  components: {
+    draggable,
   },
   data: function () {
     const todos = testTodos()
@@ -122,7 +133,7 @@ export default {
         todosCopy = this.todos.slice()
       }
 
-      todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
+      // todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
       return todosCopy
     }
   },
@@ -133,6 +144,7 @@ export default {
     this.compareSort = new Intl.Collator().compare
     this.dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'full' })
     // console.log(caseFoldRemoveAccents("  Ε! Αμάν ΠιΆ με αυτές τις πατάτες  "))
+    // console.log(camelCase('this is a test'))
   },
   methods: {
     selectTodo: function (id) {
