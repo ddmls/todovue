@@ -26,7 +26,6 @@
       <div class="content">
         <ul>
           <li v-for="todo in sortedTodos" :key="todo.id" 
-            :class="todo.id === selectedId && 'has-background-info'"
             @click="selectTodo(todo.id)"
             @dblclick="editTodo(todo.id)"
           >
@@ -43,7 +42,10 @@
               </div>
             </template>
             <template v-else>
+              <span :class="todo.id === selectedId && 'has-background-info'">
               {{ todo.title }}
+              </span>
+              <a class="tag is-delete"></a>
             </template>
           </li>
         </ul>
