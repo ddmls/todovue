@@ -49,7 +49,7 @@
         @end="drag=false">
         <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
           @dblclick="editTodo(todo.id)"
-          class="notification"
+          class="box"
           :class="todo.id === selectedId && 'has-background-info'"
         >
           <template v-if="todo.id === editingId">
@@ -213,6 +213,10 @@ export default {
 // li {
 //   user-select: none
 // }
+div.box {
+  // margin-bottom: 0.5rem
+  margin-bottom: 0rem
+}
 </style>
 
 // <!-- Add "scoped" attribute to limit CSS to this component only -->
