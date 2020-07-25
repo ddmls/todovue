@@ -29,6 +29,15 @@
         </button>
       </a>
     </div>
+    <div class="field">
+      <div class="control">
+        <a
+          class="button is-link"
+          @click="newTodo">
+          New
+        </a>
+      </div>
+    </div>
 
     <div class="content">
       <draggable
@@ -185,6 +194,15 @@ export default {
     },
     deleteTodo: function () {
       console.log("Click!")
+    },
+    newTodo: function () {
+      const newId = this.todos.length + 1 // Starting from 1
+      this.todos.push({
+        id: newId,
+        title: `Edit me ${newId}`
+      })
+      this.editTodo(newId)
+      console.log(newId)
     },
     handleChoose: function (evt) {
       this.selectTodo(this.todos[evt.oldIndex].id);
