@@ -24,15 +24,14 @@
       </div>
 
       <div class="content">
-        <!-- BUG: v-model should be sortedTodos (computed) and not todos -->
         <draggable
           v-model="sortedTodos"
           ghost-class="has-background-info-light"
           animation="150"
+          @choose="handleChoose"
           @start="drag=true"
           @end="drag=false">
           <div v-for="todo in sortedTodos" :key="todo.id" 
-            @click="selectTodo(todo.id)"
             @dblclick="editTodo(todo.id)"
           >
             <template v-if="todo.id === editingId">
@@ -138,8 +137,15 @@ export default {
         // todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
         return todosCopy
       },
-      set: function (newValue) {
-        console.log(newValue)
+      set: function (newTodos) {
+        // this.todos = newTodos.slice()
+        // console.log(JSON.stringify(this.todos))
+        const f = this.filterBy ? filterTest(this.filterBy) : null;
+        for (let i = 0, j = 0; i < this.todos.length; i++) {
+          if (!this.filterBy || f(this.todos[i].title)) {
+            this.$set(this.todos, i, newTodos[j++])
+          }
+        }
       }
     }
   },
@@ -163,6 +169,9 @@ export default {
       this.$nextTick(() => {
         this.$refs.editBox[0].focus()
       })
+    },
+    handleChoose: function (evt) {
+      this.selectTodo(this.todos[evt.oldIndex].id);
     }
   }
 };
