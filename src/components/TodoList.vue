@@ -75,7 +75,7 @@
               </a>
             </div>
             <div class="column">
-              <span>
+              <span :class="todo.done && 'has-text-grey-light is-done'">
               {{ todo.title }}
               </span>
             </div>
@@ -227,11 +227,15 @@ export default {
 
 <style scoped lang="scss">
 // li {
-//   user-select: none
+//   user-select: none;
 // }
 div.box {
-  // margin-bottom: 0.5rem
-  margin-bottom: 0rem
+  // margin-bottom: 0.5rem;
+  margin-bottom: 0rem;
+}
+
+.is-done {
+  text-decoration: line-through;
 }
 </style>
 
