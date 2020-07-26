@@ -174,8 +174,6 @@ export default {
         return todosCopy
       },
       set: function (newTodos) {
-        // this.todos = newTodos.slice()
-        // console.log(JSON.stringify(this.todos))
         const f = this.filterBy ? filterTest(this.filterBy) : null;
         for (let i = 0, j = 0; i < this.todos.length; i++) {
           if (!this.filterBy || f(this.todos[i].title) || this.isEdited(this.todos[i])) {
@@ -186,10 +184,6 @@ export default {
     }
   },
   created: function () {
-    this.compareSearch = new Intl.Collator('el', { usage: 'search', sensitivity: 'base'}).compare
-    // this.compareSort = new Intl.Collator('el', { usage: 'sort', sensitivity: 'case'}).compare
-    // console.log(new Intl.Collator().resolvedOptions())
-    this.compareSort = new Intl.Collator().compare
     this.dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'full' })
 
     // Find maxId of todos
@@ -202,8 +196,6 @@ export default {
   methods: {
     selectTodo: function (id) {
       this.selectedId = id
-      // Handled by "blur" event?
-      // if (this.editingId != this.selectedId) this.editingId = null
     },
     editTodo: function (id) {
       this.editingId = id
@@ -215,7 +207,6 @@ export default {
       this.todos.splice(index, 1)
     },
     newTodo: function () {
-      // const newId = this.todos.length + 1 // Starting from 1
       this.maxId++
       const newId = this.maxId
       this.todos.push({
@@ -224,7 +215,6 @@ export default {
         done: false
       })
       this.editTodo(newId)
-      // console.log(newId)
     },
     handleChoose: function (evt) {
       this.selectTodo(this.todos[evt.oldIndex].id);
@@ -236,10 +226,8 @@ export default {
 };
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-// li {
-//   user-select: none;
-// }
 div.box {
   // margin-bottom: 0.5rem;
   margin-bottom: 0rem;
@@ -248,23 +236,4 @@ div.box {
 .is-done {
   text-decoration: line-through;
 }
-</style>
-
-// <!-- Add "scoped" attribute to limit CSS to this component only -->
-// <style scoped lang="scss">
-// h3 {
-//   margin: 40px 0 0;
-// }
-// ul {
-//   list-style-type: none;
-//   padding: 0;
-// }
-// li {
-//   display: inline-block;
-//   margin: 0 10px;
-// }
-// a {
-//   color: #42b983;
-// }
-//
 </style>
