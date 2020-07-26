@@ -65,13 +65,14 @@
             </div>
           </template>
           <template v-else>
-            <button 
-              class="delete"
-              @click="deleteTodo(index)"
-            />
             <span>
             {{ todo.title }}
             </span>
+            <a class="control" @click="deleteTodo(index)">
+              <span class="icon has-text-danger">
+                <i class="fas fa-trash"></i>
+              </span>
+            </a>
           </template>
         </div>
       </draggable>
