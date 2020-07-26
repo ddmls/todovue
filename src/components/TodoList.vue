@@ -156,6 +156,7 @@ export default {
       editingId: null,
       filterBy: "",
       undoTitle: null,
+      maxId: 0
     };
   },
   computed: {
@@ -190,8 +191,13 @@ export default {
     // console.log(new Intl.Collator().resolvedOptions())
     this.compareSort = new Intl.Collator().compare
     this.dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'full' })
-    // console.log(caseFoldRemoveAccents("  Ε! Αμάν ΠιΆ με αυτές τις πατάτες  "))
-    // console.log(camelCase('this is a test'))
+
+    // Find maxId of todos
+    let maxId = 0
+    for (const todo of this.todos) {
+      if (todo.id > maxId) maxId = todo.id
+    }
+    this.maxId = maxId
   },
   methods: {
     selectTodo: function (id) {
@@ -209,7 +215,9 @@ export default {
       this.todos.splice(index, 1)
     },
     newTodo: function () {
-      const newId = this.todos.length + 1 // Starting from 1
+      // const newId = this.todos.length + 1 // Starting from 1
+      this.maxId++
+      const newId = this.maxId
       this.todos.push({
         id: newId,
         title: `Edit me ${newId}`,
