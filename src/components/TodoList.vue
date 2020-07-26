@@ -2,14 +2,16 @@
 <div> <!-- Temporary fix for single root -->
 
   <header class="hero is-primary is-bold">
+  <div class="container is-fluid">
     <div class="hero-body">
         <h1 class="title"> {{ msg }} </h1>
         <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
-      <div class="container"></div>
     </div>
+  </div>
   </header>
 
   <section class="section">
+  <div class="container is-fluid">
 
     <div class="field has-addons">
       <div class="control has-icons-left">
@@ -39,50 +41,57 @@
       </div>
     </div>
 
-    <div class="content">
-      <draggable
-        v-model="sortedTodos"
-        ghost-class="has-background-info-light"
-        animation="150"
-        @choose="handleChoose"
-        @start="drag=true"
-        @end="drag=false">
-        <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
-          @dblclick="editTodo(todo.id)"
-          class="box"
-          :class="todo.id === selectedId && 'has-background-info'"
-        >
-          <template v-if="todo.id === editingId">
-            <div class="control">
-              <input class="input" type="text"
-                v-model.lazy="todo.title"
-                ref="editBox"
-                @keyup.enter="editingId = null"
-                @focus="undoTitle = todo.title"
-                @blur="editingId = null"
-                @keyup.esc="editingId = null; todo.title = undoTitle"
-              >
+    <draggable
+      v-model="sortedTodos"
+      ghost-class="has-background-info-light"
+      animation="150"
+      @choose="handleChoose"
+      @start="drag=true"
+      @end="drag=false">
+      <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
+        @dblclick="editTodo(todo.id)"
+        class="box"
+        :class="todo.id === selectedId && 'has-background-info'"
+      >
+        <template v-if="todo.id === editingId">
+          <div class="control">
+            <input class="input" type="text"
+              v-model.lazy="todo.title"
+              ref="editBox"
+              @keyup.enter="editingId = null"
+              @focus="undoTitle = todo.title"
+              @blur="editingId = null"
+              @keyup.esc="editingId = null; todo.title = undoTitle"
+            >
+          </div>
+        </template>
+        <template v-else>
+          <div class="columns">
+            <div class="column is-narrow">
+              <a @click="todo.done = !todo.done">
+                <span class="icon has-text-black">
+                  <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
+                </span>
+              </a>
             </div>
-          </template>
-          <template v-else>
-            <a @click="todo.done = !todo.done">
-              <span class="icon has-text-black">
-                <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
+            <div class="column">
+              <span>
+              {{ todo.title }}
               </span>
-            </a>
-            <span>
-            {{ todo.title }}
-            </span>
-            <a @click="deleteTodo(index)">
-              <span class="icon has-text-danger">
-                <i class="fas fa-trash"></i>
-              </span>
-            </a>
-          </template>
-        </div>
-      </draggable>
-    </div>
+            </div>
+            <div class="column is-narrow">
+              <a @click="deleteTodo(index)">
+                <span class="icon has-text-danger">
+                  <i class="fas fa-trash"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+        </template>
+      </div>
+    </draggable>
 
+  </div>
   </section>
 
 </div>
