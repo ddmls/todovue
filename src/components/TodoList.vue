@@ -65,10 +65,15 @@
             </div>
           </template>
           <template v-else>
+            <a @click="todo.done = !todo.done">
+              <span class="icon has-text-black">
+                <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
+              </span>
+            </a>
             <span>
             {{ todo.title }}
             </span>
-            <a class="control" @click="deleteTodo(index)">
+            <a @click="deleteTodo(index)">
               <span class="icon has-text-danger">
                 <i class="fas fa-trash"></i>
               </span>
@@ -86,17 +91,17 @@
 <script>
 function testTodos() {
   return [
-    { id: 1, title: "Clean the house" },
-    { id: 2, title: "Walk the dog" },
-    { id: 3, title: "Eat food" },
-    { id: 4, title: "Sleep" },
-    { id: 5, title: "Φάε φαγητο" },
-    { id: 6, title: "Έλα ρε μεγάλε" },
-    { id: 7, title: "Εκείνο να πάρεις" },
-    { id: 8, title: "Σοβαρά μιλάμε τώρα" },
-    { id: 9, title: "έννοιες δεν έχω" },
-    { id: 10, title: "εάλλω η Πόλις" },
-    { id: 11, title: "don't do anything"}
+    { id: 1, title: "Clean the house", done: false },
+    { id: 2, title: "Walk the dog", done: false },
+    { id: 3, title: "Eat food", done: false },
+    { id: 4, title: "Sleep", done: false },
+    { id: 5, title: "Φάε φαγητο", done: false },
+    { id: 6, title: "Έλα ρε μεγάλε", done: false },
+    { id: 7, title: "Εκείνο να πάρεις", done: false },
+    { id: 8, title: "Σοβαρά μιλάμε τώρα", done: false },
+    { id: 9, title: "έννοιες δεν έχω", done: false },
+    { id: 10, title: "εάλλω η Πόλις", done: false },
+    { id: 11, title: "don't do anything", done: false }
   ];
 }
 
@@ -198,7 +203,8 @@ export default {
       const newId = this.todos.length + 1 // Starting from 1
       this.todos.push({
         id: newId,
-        title: `Edit me ${newId}`
+        title: `Edit me ${newId}`,
+        done: false
       })
       this.editTodo(newId)
       console.log(newId)
