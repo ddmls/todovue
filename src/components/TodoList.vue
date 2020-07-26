@@ -66,7 +66,7 @@
           </div>
         </template>
         <template v-else>
-          <div class="columns">
+          <div class="columns is-mobile">
             <div class="column is-narrow">
               <a @click="todo.done = !todo.done">
                 <span class="icon has-text-black">
