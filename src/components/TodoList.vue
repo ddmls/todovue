@@ -164,7 +164,7 @@ export default {
         let todosCopy
         if (this.filterBy) {
           const f = filterTest(this.filterBy)
-          todosCopy = this.todos.filter( a => f(a.title) )
+          todosCopy = this.todos.filter( a => f(a.title) || this.isEdited(a) )
         } else {
           todosCopy = this.todos.slice()
         }
@@ -177,7 +177,7 @@ export default {
         // console.log(JSON.stringify(this.todos))
         const f = this.filterBy ? filterTest(this.filterBy) : null;
         for (let i = 0, j = 0; i < this.todos.length; i++) {
-          if (!this.filterBy || f(this.todos[i].title)) {
+          if (!this.filterBy || f(this.todos[i].title) || this.isEdited(this.todos[i])) {
             this.$set(this.todos, i, newTodos[j++])
           }
         }
@@ -216,10 +216,13 @@ export default {
         done: false
       })
       this.editTodo(newId)
-      console.log(newId)
+      // console.log(newId)
     },
     handleChoose: function (evt) {
       this.selectTodo(this.todos[evt.oldIndex].id);
+    },
+    isEdited: function (todo) {
+      return todo.id === this.editingId
     }
   }
 };
