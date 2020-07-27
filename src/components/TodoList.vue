@@ -27,11 +27,11 @@
     </div>
 
     <p class="panel-tabs">
-      <a class="is-active">All</a>
-      <a>Public</a>
-      <a>Private</a>
-      <a>Sources</a>
-      <a>Forks</a>
+      <a class="is-active">Όλα</a>
+      <a>Να γίνουν</a>
+      <a>Έγιναν</a>
+      <a>Σημαντικά</a>
+      <a>Θα δούμε</a>
     </p>
 
     <a class="panel-block">
