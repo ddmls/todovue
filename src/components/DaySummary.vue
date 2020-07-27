@@ -1,5 +1,6 @@
 <template>
-  <header class="hero is-primary is-bold">
+  <!-- <header class="hero is-primary is-bold"> -->
+  <header class="hero">
   <!-- <div class="container is-fluid"> -->
     <div class="hero-body">
       <h1 class="title is-2 is-family-secondary"> {{ msg }} </h1>
@@ -23,4 +24,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+header {
+  background-image: url('../assets/DSC_0195_v1.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  // filter: blur(8px);
+}
 </style>
