@@ -1,15 +1,4 @@
 <template>
-<div> <!-- Temporary fix for single root -->
-
-  <header class="hero is-primary is-bold">
-  <div class="container is-fluid">
-    <div class="hero-body">
-        <h1 class="title"> {{ msg }} </h1>
-        <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
-    </div>
-  </div>
-  </header>
-
   <section class="section">
   <div class="container is-fluid">
 
@@ -94,7 +83,6 @@
   </div>
   </section>
 
-</div>
 </template>
 
 <script>
@@ -184,8 +172,6 @@ export default {
     }
   },
   created: function () {
-    this.dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'full' })
-
     // Find maxId of todos
     let maxId = 0
     for (const todo of this.todos) {

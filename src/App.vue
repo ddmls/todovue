@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-      <TodoList msg="Τι θα κάνω σήμερα"/>
+    <DaySummary msg="Τι θα κάνω σήμερα"/>
+    <TodoList msg="Τι θα κάνω σήμερα"/>
   </div>
 </template>
 
 <script>
 import TodoList from './components/TodoList.vue'
+import DaySummary from './components/DaySummary.vue'
 
 export default {
   name: 'App',
   components: {
-    TodoList
+    TodoList,
+    DaySummary
   }
 }
 </script>
