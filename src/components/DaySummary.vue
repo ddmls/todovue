@@ -1,11 +1,11 @@
 <template>
   <header class="hero is-primary is-bold">
-  <div class="container is-fluid">
+  <!-- <div class="container is-fluid"> -->
     <div class="hero-body">
-        <h1 class="title"> {{ msg }} </h1>
-        <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
+      <h1 class="title"> {{ msg }} </h1>
+      <h2 class="subtitle"> {{ dateTimeFormat.format(new Date()) }} </h2>
     </div>
-  </div>
+  <!-- </div> -->
   </header>
 </template>
 

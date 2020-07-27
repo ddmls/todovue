@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-  <div class="container is-fluid">
+  <!-- <div class="container is-fluid"> -->
 
     <div class="field has-addons">
       <div class="control has-icons-left">
@@ -80,7 +80,7 @@
       </div>
     </draggable>
 
-  </div>
+  <!-- </div> -->
   </section>
 
 </template>
