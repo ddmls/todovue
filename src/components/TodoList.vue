@@ -50,7 +50,7 @@
     >
       <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
         class="panel-block"
-        :class="todo.id === selectedId && 'is-active'"
+        :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
         @dblclick="editTodo(todo.id)"
       >
         <template v-if="todo.id === editingId">
@@ -65,6 +65,7 @@
             >
           </div>
         </template>
+
         <template v-else>
           <span class="panel-icon" @click="todo.done = !todo.done">
             <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
@@ -72,16 +73,27 @@
           <span :class="todo.done && 'has-text-grey-light is-done'">
             {{ todo.title }}
           </span>
-          <a 
-            class="todo-toolbox"
-            @click="deleteTodo(index)"
-            v-show="todo.id === selectedId"
-          >
-            <span class="icon has-text-danger">
-              <i class="fas fa-trash"></i>
-            </span>
-          </a>
+
+          <div class="todo-toolbox" v-show="todo.id === selectedId">
+            <a @click="todo.priority = todo.priority === priority.HIGH ? priority.NORMAL : priority.HIGH">
+              <span class="icon has-text-warning">
+                <i class="fas fa-star"></i>
+              </span>
+            </a>
+            <a @click="todo.priority = todo.priority === priority.LOW ? priority.NORMAL : priority.LOW">
+              <span class="icon has-text-grey">
+                <i class="fas fa-thumbs-down"></i>
+              </span>
+            </a>
+            <a @click="deleteTodo(index)">
+              <span class="icon has-text-danger">
+                <i class="fas fa-trash"></i>
+              </span>
+            </a>
+          </div>
+
         </template>
+
       </div>
     </draggable>
 
@@ -92,19 +104,25 @@
 </template>
 
 <script>
+const priority = {
+  HIGH: -1,
+  NORMAL: 0,
+  LOW: 1,
+}
+
 function testTodos() {
   return [
-    { id: 1, title: "Clean the house", done: false },
-    { id: 2, title: "Walk the dog", done: false },
-    { id: 3, title: "Eat food", done: false },
-    { id: 4, title: "Sleep", done: false },
-    { id: 5, title: "Φάε φαγητο", done: false },
-    { id: 6, title: "Έλα ρε μεγάλε", done: false },
-    { id: 7, title: "Εκείνο να πάρεις", done: false },
-    { id: 8, title: "Σοβαρά μιλάμε τώρα", done: false },
-    { id: 9, title: "έννοιες δεν έχω", done: false },
-    { id: 10, title: "εάλλω η Πόλις", done: false },
-    { id: 11, title: "don't do anything", done: false }
+    { id: 1, title: "Clean the house", done: false, priority: priority.NORMAL },
+    { id: 2, title: "Walk the dog", done: false, priority: priority.NORMAL },
+    { id: 3, title: "Eat food", done: false, priority: priority.NORMAL },
+    { id: 4, title: "Sleep", done: false, priority: priority.NORMAL },
+    { id: 5, title: "Φάε φαγητο", done: false, priority: priority.NORMAL },
+    { id: 6, title: "Έλα ρε μεγάλε", done: false, priority: priority.NORMAL },
+    { id: 7, title: "Εκείνο να πάρεις", done: false, priority: priority.NORMAL },
+    { id: 8, title: "Σοβαρά μιλάμε τώρα", done: false, priority: priority.NORMAL },
+    { id: 9, title: "έννοιες δεν έχω", done: false, priority: priority.NORMAL },
+    { id: 10, title: "εάλλω η Πόλις", done: false, priority: priority.NORMAL },
+    { id: 11, title: "don't do anything", done: false, priority: priority.NORMAL },
   ];
 }
 
@@ -150,7 +168,8 @@ export default {
       editingId: null,
       filterBy: "",
       undoTitle: null,
-      maxId: 0
+      maxId: 0,
+      priority: priority
     };
   },
   computed: {
@@ -204,7 +223,8 @@ export default {
       this.todos.unshift({
         id: newId,
         title: `Νέο ${newId}`,
-        done: false
+        done: false,
+        priority: priority.NORMAL
       })
       this.editTodo(newId)
     },
