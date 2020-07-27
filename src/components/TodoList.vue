@@ -67,7 +67,7 @@
         </template>
 
         <template v-else>
-          <span class="panel-icon" @click="todo.done = !todo.done">
+          <span class="panel-icon" @click="checkTodo(todo, index)">
             <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
           </span>
           <span :class="todo.done && 'has-text-grey-light is-done'">
@@ -233,6 +233,16 @@ export default {
     },
     isEdited: function (todo) {
       return todo.id === this.editingId
+    },
+    checkTodo: function (todo, index) {
+      this.todos.splice(index, 1)
+      if (!todo.done) {
+        this.todos.push(todo)
+      } else {
+        this.todos.unshift(todo)
+      }
+      todo.done = !todo.done
+      this.selectedId = null
     }
   }
 };
