@@ -201,9 +201,9 @@ export default {
     newTodo: function () {
       this.maxId++
       const newId = this.maxId
-      this.todos.push({
+      this.todos.unshift({
         id: newId,
-        title: `Edit me ${newId}`,
+        title: `Νέο ${newId}`,
         done: false
       })
       this.editTodo(newId)
