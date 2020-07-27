@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  
   <!-- <div class="container is-fluid"> -->
 
   <nav class="panel">
@@ -95,7 +95,6 @@
   </nav>
 
   <!-- </div> -->
-  </section>
 
 </template>
 
