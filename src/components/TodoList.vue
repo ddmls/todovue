@@ -72,7 +72,7 @@
           <span :class="todo.done && 'has-text-grey-light is-done'">
             {{ todo.title }}
           </span>
-          <a @click="deleteTodo(index)">
+          <a class="todo-toolbox" @click="deleteTodo(index)">
             <span class="icon has-text-danger">
               <i class="fas fa-trash"></i>
             </span>
@@ -216,12 +216,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-div.box {
-  // margin-bottom: 0.5rem;
-  margin-bottom: 0rem;
-}
+// div.box {
+//   // margin-bottom: 0.5rem;
+//   margin-bottom: 0rem;
+// }
 
 .is-done {
   text-decoration: line-through;
+}
+
+.todo-toolbox {
+  margin-left: auto;
 }
 </style>
