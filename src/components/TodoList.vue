@@ -2,7 +2,7 @@
   
   <!-- <div class="container is-fluid"> -->
 
-  <nav class="panel">
+  <nav class="panel is-warning">
     <p class="panel-heading">
       {{ msg }}
     </p>
@@ -47,11 +47,10 @@
       ghost-class="has-background-info-light"
       animation="150"
       @choose="handleChoose"
-      @start="drag=true"
-      @end="drag=false">
+    >
       <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
         class="panel-block"
-        :class="todo.id === selectedId && 'has-background-info'"
+        :class="todo.id === selectedId && 'is-active'"
         @dblclick="editTodo(todo.id)"
       >
         <template v-if="todo.id === editingId">
@@ -67,27 +66,17 @@
           </div>
         </template>
         <template v-else>
-          <div class="columns is-mobile">
-            <div class="column is-narrow">
-              <a @click="todo.done = !todo.done">
-                <span class="icon has-text-black">
-                  <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
-                </span>
-              </a>
-            </div>
-            <div class="column">
-              <span :class="todo.done && 'has-text-grey-light is-done'">
-              {{ todo.title }}
-              </span>
-            </div>
-            <div class="column is-narrow">
-              <a @click="deleteTodo(index)">
-                <span class="icon has-text-danger">
-                  <i class="fas fa-trash"></i>
-                </span>
-              </a>
-            </div>
-          </div>
+          <span class="panel-icon" @click="todo.done = !todo.done">
+            <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
+          </span>
+          <span :class="todo.done && 'has-text-grey-light is-done'">
+            {{ todo.title }}
+          </span>
+          <a @click="deleteTodo(index)">
+            <span class="icon has-text-danger">
+              <i class="fas fa-trash"></i>
+            </span>
+          </a>
         </template>
       </div>
     </draggable>
