@@ -72,7 +72,11 @@
           <span :class="todo.done && 'has-text-grey-light is-done'">
             {{ todo.title }}
           </span>
-          <a class="todo-toolbox" @click="deleteTodo(index)">
+          <a 
+            class="todo-toolbox"
+            @click="deleteTodo(index)"
+            v-show="todo.id === selectedId"
+          >
             <span class="icon has-text-danger">
               <i class="fas fa-trash"></i>
             </span>
