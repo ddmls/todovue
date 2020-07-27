@@ -2,9 +2,14 @@
   <section class="section">
   <!-- <div class="container is-fluid"> -->
 
-    <div class="field has-addons">
+  <nav class="panel">
+    <p class="panel-heading">
+      {{ msg }}
+    </p>
+
+    <div class="panel-block">
       <div class="control has-icons-left">
-        <input class="input" type="text" placeholder="Filter"
+        <input class="input" type="text" placeholder="Φίλτρο"
           v-model="filterBy"
           @keyup.esc="filterBy=''"
         >
@@ -20,15 +25,22 @@
         </button>
       </a>
     </div>
-    <div class="field">
-      <div class="control">
-        <a
-          class="button is-link"
+
+    <p class="panel-tabs">
+      <a class="is-active">All</a>
+      <a>Public</a>
+      <a>Private</a>
+      <a>Sources</a>
+      <a>Forks</a>
+    </p>
+
+    <a class="panel-block">
+        <button
+          class="button is-link is-outlined"
           @click="newTodo">
-          New
-        </a>
-      </div>
-    </div>
+          Νέο
+        </button>
+    </a>
 
     <draggable
       v-model="sortedTodos"
@@ -38,9 +50,9 @@
       @start="drag=true"
       @end="drag=false">
       <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
-        @dblclick="editTodo(todo.id)"
-        class="box"
+        class="panel-block"
         :class="todo.id === selectedId && 'has-background-info'"
+        @dblclick="editTodo(todo.id)"
       >
         <template v-if="todo.id === editingId">
           <div class="control">
@@ -79,6 +91,8 @@
         </template>
       </div>
     </draggable>
+
+  </nav>
 
   <!-- </div> -->
   </section>

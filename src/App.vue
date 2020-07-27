@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <DaySummary msg="Τι θα κάνω σήμερα"/>
-    <TodoList msg="Τι θα κάνω σήμερα"/>
+    <TodoList msg="Τεστ"/>
   </div>
 </template>
 
