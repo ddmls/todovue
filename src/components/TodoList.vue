@@ -48,7 +48,7 @@
       animation="150"
       @choose="handleChoose"
     >
-      <div v-for="(todo,index) in sortedTodos" :key="todo.id" 
+      <div v-for="todo in sortedTodos" :key="todo.id"
         class="panel-block"
         :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
         @dblclick="editTodo(todo.id)"
@@ -67,11 +67,11 @@
         </template>
 
         <template v-else>
-          <span class="panel-icon" @click="checkTodo(todo, index)">
+          <span class="panel-icon" @click="checkTodo(todo)">
             <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
           </span>
           <span :class="todo.done && 'has-text-grey-light is-done'">
-            {{ todo.title }}
+            {{ todo.id }} {{ todo.title }}
           </span>
 
           <div class="todo-toolbox" v-show="todo.id === selectedId">
@@ -85,7 +85,7 @@
                 <i class="fas fa-thumbs-down"></i>
               </span>
             </a>
-            <a @click="deleteTodo(index)">
+            <a @click="deleteTodo(todo)">
               <span class="icon has-text-danger">
                 <i class="fas fa-trash"></i>
               </span>
@@ -214,7 +214,9 @@ export default {
         this.$refs.editBox[0].focus()
       })
     },
-    deleteTodo: function (index) {
+    deleteTodo: function (todo) {
+      // We can't use the index of v-for because it's the index in the filtered list. We need the index in the original list.
+      const index = this.todos.findIndex(t => t.id === todo.id)
       this.todos.splice(index, 1)
     },
     newTodo: function () {
@@ -234,7 +236,8 @@ export default {
     isEdited: function (todo) {
       return todo.id === this.editingId
     },
-    checkTodo: function (todo, index) {
+    checkTodo: function (todo) {
+      const index = this.todos.findIndex(t => t.id === todo.id)
       this.todos.splice(index, 1)
       if (!todo.done) {
         this.todos.push(todo)
@@ -242,7 +245,7 @@ export default {
         this.todos.unshift(todo)
       }
       todo.done = !todo.done
-      this.selectedId = null
+      // this.selectedId = null
     }
   }
 };
