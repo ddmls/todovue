@@ -50,8 +50,8 @@
       <div v-for="todo in sortedTodos" :key="todo.id"
         class="panel-block"
         :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
-        @dblclick="editTodo(todo.id)"
-        @click="selectTodo(todo.id)"
+        @dblclick="editTodo(todo)"
+        @click="selectTodo(todo)"
       >
         <template v-if="todo.id === editingId">
           <div class="control">
@@ -205,11 +205,11 @@ export default {
     this.maxId = maxId
   },
   methods: {
-    selectTodo: function (id) {
-      this.selectedId = id
+    selectTodo: function (todo) {
+      this.selectedId = todo.id
     },
-    editTodo: function (id) {
-      this.editingId = id
+    editTodo: function (todo) {
+      this.editingId = todo.id
       this.$nextTick(() => {
         this.$refs.editBox[0].focus()
       })
@@ -221,17 +221,17 @@ export default {
     },
     newTodo: function () {
       this.maxId++
-      const newId = this.maxId
-      this.todos.unshift({
-        id: newId,
-        title: `Νέο ${newId}`,
+      const newTodo = {
+        id: this.maxId,
+        title: 'Νέο',
         done: false,
         priority: priority.NORMAL
-      })
-      this.editTodo(newId)
+      }
+      this.todos.unshift(newTodo)
+      this.editTodo(newTodo)
     },
     // handleChoose: function (evt) {
-    //   this.selectTodo(this.todos[evt.oldIndex].id);
+    //   this.selectTodo(this.todos[evt.oldIndex]);
     // },
     isEdited: function (todo) {
       return todo.id === this.editingId
