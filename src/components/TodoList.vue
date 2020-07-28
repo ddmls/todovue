@@ -139,6 +139,7 @@ function caseFoldRemoveAccents(str) {
 function filterTest(filter) {
   // Split into words, remove extra spaces producing empty arrays
   const filterWords = caseFoldRemoveAccents(filter).split(' ').filter(x => x)
+  if (filterWords.length === 0) return function(str) { return true } // eslint-disable-line no-unused-vars
   return function(str) {
     const caseFoldedStr = caseFoldRemoveAccents(str)
     for (const word of filterWords) {
@@ -187,9 +188,9 @@ export default {
         return todosCopy
       },
       set: function (newTodos) {
-        const f = this.filterBy ? filterTest(this.filterBy) : null;
+        const f = filterTest(this.filterBy)
         for (let i = 0, j = 0; i < this.todos.length; i++) {
-          if (!this.filterBy || f(this.todos[i].title) || this.isEdited(this.todos[i])) {
+          if (f(this.todos[i].title) || this.isEdited(this.todos[i])) {
             this.$set(this.todos, i, newTodos[j++])
           }
         }
