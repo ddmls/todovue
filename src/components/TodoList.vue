@@ -52,6 +52,8 @@
         :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
         @dblclick="editTodo(todo)"
         @click="selectTodo(todo)"
+        @mouseover="selectTodo(todo)"
+        @mouseout="selectedId = null"
       >
         <template v-if="todo.id === editingId">
           <div class="control">
@@ -268,5 +270,9 @@ export default {
 
 .todo-toolbox {
   margin-left: auto;
+}
+
+div.panel-block:hover {
+  background-color: hsl(224, 30%, 90%)
 }
 </style>
