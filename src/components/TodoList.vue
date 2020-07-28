@@ -46,12 +46,12 @@
       v-model="sortedTodos"
       ghost-class="has-background-info-light"
       animation="150"
-      @choose="handleChoose"
     >
       <div v-for="todo in sortedTodos" :key="todo.id"
         class="panel-block"
         :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
         @dblclick="editTodo(todo.id)"
+        @click="selectTodo(todo.id)"
       >
         <template v-if="todo.id === editingId">
           <div class="control">
@@ -67,7 +67,7 @@
         </template>
 
         <template v-else>
-          <span class="panel-icon" @click="checkTodo(todo)">
+          <span class="panel-icon" @click.stop="checkTodo(todo)">
             <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
           </span>
           <span :class="todo.done && 'has-text-grey-light is-done'">
@@ -230,9 +230,9 @@ export default {
       })
       this.editTodo(newId)
     },
-    handleChoose: function (evt) {
-      this.selectTodo(this.todos[evt.oldIndex].id);
-    },
+    // handleChoose: function (evt) {
+    //   this.selectTodo(this.todos[evt.oldIndex].id);
+    // },
     isEdited: function (todo) {
       return todo.id === this.editingId
     },
