@@ -189,11 +189,14 @@ export default {
       },
       set: function (newTodos) {
         const f = filterTest(this.filterBy)
-        for (let i = 0, j = 0; i < this.todos.length; i++) {
-          if (f(this.todos[i].title) || this.isEdited(this.todos[i])) {
-            this.$set(this.todos, i, newTodos[j++])
+        let i = 0
+        this.todos = this.todos.map(todo => {
+          if (f(todo.title) || this.isEdited(todo)) {
+            return newTodos[i++]
+          } else {
+            return todo
           }
-        }
+        })
       }
     }
   },
