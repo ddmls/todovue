@@ -8,7 +8,7 @@
     </p>
 
     <div class="panel-block">
-      <div class="control has-icons-left">
+      <div class="control has-icons-left has-icons-right">
         <input class="input" type="text" placeholder="Φίλτρο"
           v-model="filterBy"
           @keyup.esc="filterBy=''"
@@ -16,14 +16,12 @@
         <span class="icon is-small is-left">
           <i class="fas fa-search"></i>
         </span>
-      </div>
-      <a class="control" @click="filterBy=''">
-        <button class="button">
+        <button class="button" @click="filterBy=''">
           <span class="icon is-small has-text-danger">
             <i class="fas fa-ban"></i>
           </span>
         </button>
-      </a>
+      </div>
     </div>
 
     <p class="panel-tabs">
@@ -275,4 +273,17 @@ export default {
 div.panel-block:hover {
   background-color: hsl(224, 30%, 90%)
 }
+
+.control .button {
+  position: absolute;
+  right: 0;
+  background: transparent;
+  &, &:focus {
+      border-color:transparent;
+  }
+  &:focus {
+      box-shadow: none;
+  }
+}
+
 </style>
