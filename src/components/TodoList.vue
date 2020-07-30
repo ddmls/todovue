@@ -44,6 +44,7 @@
       v-model="sortedTodos"
       ghost-class="has-background-info-light"
       animation="150"
+      :disabled="false"
     >
       <div v-for="todo in sortedTodos" :key="todo.id"
         class="panel-block"
