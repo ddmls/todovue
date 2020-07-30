@@ -34,9 +34,11 @@
 
     <a class="panel-block">
         <button
-          class="button is-link is-outlined"
+          class="button is-link is-outlined is-small"
           @click="newTodo">
-          Νέο
+          <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+          </span>
         </button>
     </a>
 
