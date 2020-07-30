@@ -48,11 +48,11 @@
       <div v-for="todo in sortedTodos" :key="todo.id"
         class="panel-block"
         :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
-        @click="checkTodo(todo)"
+        @click="!isEdited(todo) && checkTodo(todo)"
         @mouseover="selectTodo(todo)"
         @mouseout="selectedId = null"
       >
-        <template v-if="todo.id === editingId">
+        <template v-if="isEdited(todo)">
           <div class="control">
             <input class="input" type="text"
               v-model.lazy="todo.title"
