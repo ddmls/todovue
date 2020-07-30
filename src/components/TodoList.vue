@@ -16,7 +16,7 @@
         <span class="icon is-small is-left">
           <i class="fas fa-search"></i>
         </span>
-        <button class="button" @click="filterBy=''">
+        <button class="button" @click="filterBy=''" v-show="filterBy">
           <span class="icon is-small has-text-danger">
             <i class="fas fa-ban"></i>
           </span>
