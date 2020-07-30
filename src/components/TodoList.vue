@@ -8,19 +8,30 @@
     </p>
 
     <div class="panel-block">
-      <div class="control has-icons-left has-icons-right">
-        <input class="input" type="text" placeholder="Φίλτρο"
-          v-model="filterBy"
-          @keyup.esc="filterBy=''"
-        >
-        <span class="icon is-small is-left">
-          <i class="fas fa-search"></i>
-        </span>
-        <button class="button" @click="filterBy=''" v-show="filterBy">
-          <span class="icon is-small has-text-danger">
-            <i class="fas fa-ban"></i>
+      <div class="field is-grouped">
+        <p class="control has-icons-left has-icons-right is-expanded">
+          <input class="input" type="text" placeholder="Φίλτρο"
+            v-model="filterBy"
+            @keyup.esc="filterBy=''"
+          >
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
           </span>
-        </button>
+          <button class="button is-inside" @click="filterBy=''" v-show="filterBy">
+            <span class="icon is-small has-text-danger">
+              <i class="fas fa-ban"></i>
+            </span>
+          </button>
+        </p>
+        <p class="control">
+          <button
+            class="button is-link is-outlined is-small"
+            @click="newTodo">
+            <span class="icon is-small">
+              <i class="fas fa-plus"></i>
+            </span>
+          </button>
+        </p>
       </div>
     </div>
 
@@ -32,15 +43,7 @@
       <a>Θα δούμε</a>
     </p>
 
-    <a class="panel-block">
-        <button
-          class="button is-link is-outlined is-small"
-          @click="newTodo">
-          <span class="icon is-small">
-            <i class="fas fa-plus"></i>
-          </span>
-        </button>
-    </a>
+    
 
     <draggable
       v-model="sortedTodos"
@@ -65,7 +68,7 @@
               @blur="editingId = null"
               @keyup.esc="editingId = null; todo.title = undoTitle"
             >
-            <button class="button" @click="editingId = null; todo.title = undoTitle">
+            <button class="button is-inside" @click="editingId = null; todo.title = undoTitle">
               <span class="icon is-small has-text-info">
                 <i class="fas fa-undo"></i>
               </span>
@@ -286,7 +289,7 @@ div.panel-block:hover {
   background-color: hsl(224, 30%, 90%)
 }
 
-.control .button {
+.control .button.is-inside {
   position: absolute;
   right: 0;
   background: transparent;
