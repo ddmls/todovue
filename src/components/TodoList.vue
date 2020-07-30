@@ -48,8 +48,7 @@
       <div v-for="todo in sortedTodos" :key="todo.id"
         class="panel-block"
         :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
-        @dblclick="editTodo(todo)"
-        @click="selectTodo(todo)"
+        @click="checkTodo(todo)"
         @mouseover="selectTodo(todo)"
         @mouseout="selectedId = null"
       >
@@ -67,25 +66,30 @@
         </template>
 
         <template v-else>
-          <span class="panel-icon" @click.stop="checkTodo(todo)">
-            <i :class="todo.done ? 'far fa-check-circle' : 'far fa-circle'"></i>
+          <span class="panel-icon fa-lg">
+            <i :class="todo.done ? 'far fa-check-circle has-text-success' : 'far fa-circle'"></i>
           </span>
           <span :class="todo.done && 'has-text-grey-light is-done'">
             {{ todo.id }} {{ todo.title }}
           </span>
 
           <div class="todo-toolbox" v-show="todo.id === selectedId">
-            <a @click="todo.priority = todo.priority === priority.HIGH ? priority.NORMAL : priority.HIGH">
+            <a @click.stop="editTodo(todo)">
+              <span class="icon">
+                <i class="fas fa-edit has-text-black"></i>
+              </span>
+            </a>
+            <a @click.stop="todo.priority = todo.priority === priority.HIGH ? priority.NORMAL : priority.HIGH">
               <span class="icon has-text-warning">
                 <i class="fas fa-star"></i>
               </span>
             </a>
-            <a @click="todo.priority = todo.priority === priority.LOW ? priority.NORMAL : priority.LOW">
+            <a @click.stop="todo.priority = todo.priority === priority.LOW ? priority.NORMAL : priority.LOW">
               <span class="icon has-text-grey">
                 <i class="fas fa-thumbs-down"></i>
               </span>
             </a>
-            <a @click="deleteTodo(todo)">
+            <a @click.stop="deleteTodo(todo)">
               <span class="icon has-text-danger">
                 <i class="fas fa-trash"></i>
               </span>
