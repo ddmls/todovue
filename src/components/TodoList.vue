@@ -62,6 +62,11 @@
               @blur="editingId = null"
               @keyup.esc="editingId = null; todo.title = undoTitle"
             >
+            <button class="button" @click="editingId = null; todo.title = undoTitle">
+              <span class="icon is-small has-text-info">
+                <i class="fas fa-undo"></i>
+              </span>
+            </button>
           </div>
         </template>
 
