@@ -8,7 +8,7 @@
     </p>
 
     <div class="panel-block">
-      <div class="field is-grouped">
+      <div class="field has-addons">
         <p class="control has-icons-left has-icons-right is-expanded">
           <input class="input" type="text" placeholder="Φίλτρο"
             v-model="filterBy"
@@ -17,7 +17,9 @@
           <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
           </span>
-          <button class="button is-inside" @click="filterBy=''" v-show="filterBy">
+         </p>
+        <p class="control">
+            <button class="button is-inside" @click="filterBy=''" v-show="filterBy">
             <span class="icon is-small has-text-danger">
               <i class="fas fa-ban"></i>
             </span>
@@ -25,7 +27,7 @@
         </p>
         <p class="control">
           <button
-            class="button is-link is-outlined is-small"
+            class="button is-link is-outlined"
             @click="newTodo">
             <span class="icon is-small">
               <i class="fas fa-plus"></i>
@@ -292,6 +294,8 @@ div.panel-block:hover {
 .control .button.is-inside {
   position: absolute;
   right: 0;
+  z-index: 4;
+  // pointer-events: auto;
   background: transparent;
   &, &:focus {
       border-color:transparent;
