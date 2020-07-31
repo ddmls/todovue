@@ -17,14 +17,13 @@
           <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
           </span>
+          <span
+            class="icon is-small is-right is-clickable has-text-danger"
+            @click="filterBy=''" v-show="filterBy"
+          >
+            <i class="fas fa-ban"></i>
+          </span>
          </p>
-        <p class="control">
-            <button class="button is-inside" @click="filterBy=''" v-show="filterBy">
-            <span class="icon is-small has-text-danger">
-              <i class="fas fa-ban"></i>
-            </span>
-          </button>
-        </p>
         <p class="control">
           <button
             class="button is-link is-outlined"
@@ -61,7 +60,7 @@
         @mouseout="selectedId = null"
       >
         <template v-if="isEdited(todo)">
-          <div class="control">
+          <div class="control has-icons-right">
             <input class="input" type="text"
               v-model.lazy="todo.title"
               ref="editBox"
@@ -70,11 +69,12 @@
               @blur="editingId = null"
               @keyup.esc="editingId = null; todo.title = undoTitle"
             >
-            <button class="button is-inside" @click="editingId = null; todo.title = undoTitle">
-              <span class="icon is-small has-text-info">
+              <span
+                class="icon is-small is-right is-clickable has-text-info"
+                @click="editingId = null; todo.title = undoTitle"
+              >
                 <i class="fas fa-undo"></i>
               </span>
-            </button>
           </div>
         </template>
 
@@ -291,18 +291,23 @@ div.panel-block:hover {
   background-color: hsl(224, 30%, 90%)
 }
 
-.control .button.is-inside {
-  position: absolute;
-  right: 0;
-  z-index: 4;
-  // pointer-events: auto;
-  background: transparent;
-  &, &:focus {
-      border-color:transparent;
-  }
-  &:focus {
-      box-shadow: none;
-  }
+// .control .button.is-inside {
+//   position: absolute;
+//   right: 0;
+//   z-index: 4;
+//   // pointer-events: auto;
+//   background: transparent;
+//   &, &:focus {
+//       border-color:transparent;
+//   }
+//   &:focus {
+//       box-shadow: none;
+//   }
+// }
+
+.control .icon.is-clickable {
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 </style>
