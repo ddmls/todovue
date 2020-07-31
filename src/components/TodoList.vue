@@ -25,13 +25,13 @@
           </span>
          </p>
         <p class="control">
-          <button
+          <a
             class="button is-link is-outlined"
             @click="newTodo">
             <span class="icon is-small">
               <i class="fas fa-plus"></i>
             </span>
-          </button>
+          </a>
         </p>
       </div>
     </div>
