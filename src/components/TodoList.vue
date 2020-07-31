@@ -310,4 +310,11 @@ div.panel-block:hover {
   cursor: pointer;
 }
 
+// bulma/sass/components/panel.sass for .panel-block > .control
+.panel-block > .field {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 100%;
+}
+
 </style>
