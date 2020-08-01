@@ -168,7 +168,7 @@ export default {
       todos: todos,
       selectedId: null,
       editingId: null,
-      filterBy: { text: "" },
+      filterBy: { text: "", done: null, minPriority: priority.NORMAL },
       undoTitle: null,
       maxId: 0,
       priority: priority
@@ -178,9 +178,12 @@ export default {
     filterTest: function () {
       // Split into words, remove extra spaces producing empty arrays
       const filterWords = caseFoldRemoveAccents(this.filterBy.text).split(' ').filter(x => x)
-      if (filterWords.length === 0) return function(str) { return true } // eslint-disable-line no-unused-vars
-      return function(str) {
-        const caseFoldedStr = caseFoldRemoveAccents(str)
+      // if (filterWords.length === 0) return function(todo) { return true } // eslint-disable-line no-unused-vars
+      return function(todo) {
+        if (this.filterBy.done != null && todo.done != this.filterBy.done) return false
+        if (todo.priority > this.filterBy.minPriority) return false
+
+        const caseFoldedStr = caseFoldRemoveAccents(todo.title)
         for (const word of filterWords) {
           if (caseFoldedStr.indexOf(word) == -1)
             return false
@@ -190,7 +193,7 @@ export default {
     },
     sortedTodos: {
       get: function () {
-        const todosCopy = this.todos.filter( a => this.filterTest(a.title) || this.isEdited(a) )
+        const todosCopy = this.todos.filter( todo => this.filterTest(todo) || this.isEdited(todo) )
 
         // todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
         return todosCopy
@@ -198,7 +201,7 @@ export default {
       set: function (newTodos) {
         let i = 0
         this.todos = this.todos.map(todo => {
-          if (this.filterTest(todo.title) || this.isEdited(todo)) {
+          if (this.filterTest(todo) || this.isEdited(todo)) {
             return newTodos[i++]
           } else {
             return todo
