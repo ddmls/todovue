@@ -56,22 +56,20 @@
         class="panel-block"
         :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
         @click="!isEdited(todo) && checkTodo(todo)"
-        @mouseover="selectTodo(todo)"
+        @mouseover="selectedId = todo.id"
         @mouseout="selectedId = null"
       >
         <template v-if="isEdited(todo)">
           <div class="control has-icons-right">
             <input class="input" type="text"
-              v-model.lazy="todo.title"
+              v-model="todo.title"
               ref="editBox"
-              @keyup.enter="editingId = null"
-              @focus="undoTitle = todo.title"
-              @blur="editingId = null"
-              @keyup.esc="editingId = null; todo.title = undoTitle"
+              @keyup.enter="acceptEditTodo"
+              @keyup.esc="cancelEditTodo(todo)"
             >
               <span
                 class="icon is-small is-right is-clickable has-text-info"
-                @click="editingId = null; todo.title = undoTitle"
+                @click.stop="cancelEditTodo(todo)"
               >
                 <i class="fas fa-undo"></i>
               </span>
@@ -226,14 +224,23 @@ export default {
     this.maxId = maxId
   },
   methods: {
-    selectTodo: function (todo) {
-      this.selectedId = todo.id
-    },
+    // selectTodo: function (todo) {
+    //   this.selectedId = todo.id
+    // },
     editTodo: function (todo) {
       this.editingId = todo.id
+      this.undoTitle = todo.title
       this.$nextTick(() => {
         this.$refs.editBox[0].focus()
       })
+    },
+    cancelEditTodo: function (todo) {
+      this.editingId = null
+      todo.title = this.undoTitle
+    },
+    acceptEditTodo: function () {
+      this.editingId = null
+      this.undoTitle = null
     },
     deleteTodo: function (todo) {
       // We can't use the index of v-for because it's the index in the filtered list. We need the index in the original list.
