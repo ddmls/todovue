@@ -11,15 +11,15 @@
       <div class="field has-addons">
         <p class="control has-icons-left has-icons-right is-expanded">
           <input class="input" type="text" placeholder="Φίλτρο"
-            v-model="filterBy"
-            @keyup.esc="filterBy=''"
+            v-model="filterBy.text"
+            @keyup.esc="filterBy.text=''"
           >
           <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
           </span>
           <span
             class="icon is-small is-right is-clickable has-text-danger"
-            @click="filterBy=''" v-show="filterBy"
+            @click="filterBy.text=''" v-show="filterBy.text"
           >
             <i class="fas fa-ban"></i>
           </span>
@@ -151,20 +151,6 @@ function caseFoldRemoveAccents(str) {
     .toLocaleUpperCase()
 }
 
-function filterTest(filter) {
-  // Split into words, remove extra spaces producing empty arrays
-  const filterWords = caseFoldRemoveAccents(filter).split(' ').filter(x => x)
-  if (filterWords.length === 0) return function(str) { return true } // eslint-disable-line no-unused-vars
-  return function(str) {
-    const caseFoldedStr = caseFoldRemoveAccents(str)
-    for (const word of filterWords) {
-      if (caseFoldedStr.indexOf(word) == -1)
-        return false
-    }
-    return true
-  }
-}
-
 import draggable from 'vuedraggable'
 // import camelCase from 'lodash/camelCase'
 
@@ -182,31 +168,37 @@ export default {
       todos: todos,
       selectedId: null,
       editingId: null,
-      filterBy: "",
+      filterBy: { text: "" },
       undoTitle: null,
       maxId: 0,
       priority: priority
     };
   },
   computed: {
+    filterTest: function () {
+      // Split into words, remove extra spaces producing empty arrays
+      const filterWords = caseFoldRemoveAccents(this.filterBy.text).split(' ').filter(x => x)
+      if (filterWords.length === 0) return function(str) { return true } // eslint-disable-line no-unused-vars
+      return function(str) {
+        const caseFoldedStr = caseFoldRemoveAccents(str)
+        for (const word of filterWords) {
+          if (caseFoldedStr.indexOf(word) == -1)
+            return false
+        }
+        return true
+      }
+    },
     sortedTodos: {
       get: function () {
-        let todosCopy
-        if (this.filterBy) {
-          const f = filterTest(this.filterBy)
-          todosCopy = this.todos.filter( a => f(a.title) || this.isEdited(a) )
-        } else {
-          todosCopy = this.todos.slice()
-        }
+        const todosCopy = this.todos.filter( a => this.filterTest(a.title) || this.isEdited(a) )
 
         // todosCopy.sort( (a,b) => this.compareSort(a.title, b.title) )
         return todosCopy
       },
       set: function (newTodos) {
-        const f = filterTest(this.filterBy)
         let i = 0
         this.todos = this.todos.map(todo => {
-          if (f(todo.title) || this.isEdited(todo)) {
+          if (this.filterTest(todo.title) || this.isEdited(todo)) {
             return newTodos[i++]
           } else {
             return todo
