@@ -288,7 +288,7 @@ export default {
 }
 
 div.panel-block:hover {
-  background-color: hsl(224, 30%, 90%)
+  background-color: hsl(150, 14%, 91%)
 }
 
 // .control .button.is-inside {
