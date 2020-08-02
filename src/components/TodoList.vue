@@ -37,11 +37,36 @@
     </div>
 
     <p class="panel-tabs">
-      <a class="is-active">Όλα</a>
-      <a>Να γίνουν</a>
-      <a>Έγιναν</a>
-      <a>Σημαντικά</a>
-      <a>Θα δούμε</a>
+      <a
+        :class="{ 'is-active': filterBy.done === null && filterBy.minPriority === priority.LOW }"
+        @click="filterBy.done = null; filterBy.minPriority = priority.LOW"
+      >
+      Όλα
+      </a>
+      <a
+        :class="{ 'is-active': filterBy.done === false }"
+        @click="filterBy.done = false"
+      >
+      Να γίνουν
+      </a>
+      <a
+        :class="{ 'is-active': filterBy.done === true }"
+          @click="filterBy.done = true"
+      >
+      Έγιναν
+      </a>
+      <a
+        :class="{ 'is-active': filterBy.minPriority === priority.HIGH }"
+        @click="filterBy.minPriority = filterBy.minPriority === priority.HIGH ? priority.NORMAL : priority.HIGH"
+      >
+      Σημαντικά
+      </a>
+      <a
+        :class="{ 'is-active': filterBy.minPriority === priority.LOW }"
+        @click="filterBy.minPriority = filterBy.minPriority === priority.LOW ? priority.NORMAL : priority.LOW"
+      >
+      Θα δούμε
+      </a>
     </p>
 
     
@@ -54,7 +79,7 @@
     >
       <div v-for="todo in sortedTodos" :key="todo.id"
         class="panel-block"
-        :class="[{ 'is-active': todo.id === selectedId }, { 'has-text-grey': todo.priority ===  priority.LOW }, { 'has-background-danger-light': todo.priority === priority.HIGH }]"
+        :class="{ 'is-active': todo.id === selectedId, 'has-text-grey': todo.priority ===  priority.LOW, 'has-background-danger-light': todo.priority === priority.HIGH }"
         @click="!isEdited(todo) && checkTodo(todo)"
         @mouseover="selectedId = todo.id"
         @mouseout="selectedId = null"
