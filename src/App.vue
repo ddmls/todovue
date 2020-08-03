@@ -2,7 +2,7 @@
   <div id="app">
     <DaySummary msg="Τι θα κάνω σήμερα"/>
     <section class="section">
-      <TodoList msg="Τεστ" :todos-src=testData />
+      <TodoList msg="Τεστ" :todos-src=todos />
     </section>
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 import TodoList from './components/TodoList.vue'
 import DaySummary from './components/DaySummary.vue'
-import testData from './testData.js'
+import { loadFromLocalStorage } from './storage.js'
 
 export default {
   name: 'App',
@@ -20,7 +20,7 @@ export default {
   },
   data: function () {
     return {
-      testData: testData
+      todos: loadFromLocalStorage()
     }
   }
 }
