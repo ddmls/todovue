@@ -69,8 +69,6 @@
       </a>
     </p>
 
-    
-
     <draggable
       v-model="sortedTodos"
       ghost-class="has-background-info-light"
@@ -144,28 +142,6 @@
 </template>
 
 <script>
-const priority = {
-  HIGH: -1,
-  NORMAL: 0,
-  LOW: 1,
-}
-
-function testTodos() {
-  return [
-    { id: 1, title: "Clean the house", done: false, priority: priority.NORMAL },
-    { id: 2, title: "Walk the dog", done: false, priority: priority.NORMAL },
-    { id: 3, title: "Eat food", done: false, priority: priority.NORMAL },
-    { id: 4, title: "Sleep", done: false, priority: priority.NORMAL },
-    { id: 5, title: "Φάε φαγητο", done: false, priority: priority.NORMAL },
-    { id: 6, title: "Έλα ρε μεγάλε", done: false, priority: priority.NORMAL },
-    { id: 7, title: "Εκείνο να πάρεις", done: false, priority: priority.NORMAL },
-    { id: 8, title: "Σοβαρά μιλάμε τώρα", done: false, priority: priority.NORMAL },
-    { id: 9, title: "έννοιες δεν έχω", done: false, priority: priority.NORMAL },
-    { id: 10, title: "εάλλω η Πόλις", done: false, priority: priority.NORMAL },
-    { id: 11, title: "don't do anything", done: false, priority: priority.NORMAL },
-  ];
-}
-
 function caseFoldRemoveAccents(str) {
   // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
   // Use uppercase to also handle final sigma
@@ -176,21 +152,22 @@ function caseFoldRemoveAccents(str) {
     .toLocaleUpperCase()
 }
 
+import { priority } from '../todoModel.js'
 import draggable from 'vuedraggable'
 // import camelCase from 'lodash/camelCase'
 
 export default {
   name: "TodoList",
   props: {
-    msg: String
+    msg: String,
+    todosSrc: Array,
   },
   components: {
     draggable,
   },
   data: function () {
-    const todos = testTodos()
     return {
-      todos: todos,
+      todos: this.todosSrc,
       selectedId: null,
       editingId: null,
       filterBy: { text: "", done: null, minPriority: priority.NORMAL },

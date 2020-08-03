@@ -2,7 +2,7 @@
   <div id="app">
     <DaySummary msg="Τι θα κάνω σήμερα"/>
     <section class="section">
-      <TodoList msg="Τεστ"/>
+      <TodoList msg="Τεστ" :todos-src=testData />
     </section>
   </div>
 </template>
@@ -10,12 +10,18 @@
 <script>
 import TodoList from './components/TodoList.vue'
 import DaySummary from './components/DaySummary.vue'
+import testData from './testData.js'
 
 export default {
   name: 'App',
   components: {
     TodoList,
     DaySummary
+  },
+  data: function () {
+    return {
+      testData: testData
+    }
   }
 }
 </script>
