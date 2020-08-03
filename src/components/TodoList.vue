@@ -152,9 +152,22 @@ function caseFoldRemoveAccents(str) {
     .toLocaleUpperCase()
 }
 
+const saveDelay = 2000
+
+function saveToLocalStorage(todos) {
+  const json = JSON.stringify(todos)
+  try {
+    localStorage.setItem('todos', json)
+    console.log(`SAVED! ${json}`)
+  }
+  catch (e) {
+    console.log(`Could not save, error code ${e.code}, name ${e.name}`)
+  }
+}
+
 import { priority } from '../todoModel.js'
 import draggable from 'vuedraggable'
-// import camelCase from 'lodash/camelCase'
+import debounce from 'lodash/debounce'
 
 export default {
   name: "TodoList",
@@ -173,7 +186,7 @@ export default {
       filterBy: { text: "", done: null, minPriority: priority.NORMAL },
       undoTitle: null,
       maxId: 0,
-      priority: priority
+      priority: priority,
     };
   },
   computed: {
@@ -212,7 +225,16 @@ export default {
       }
     }
   },
+  watch: {
+    todos: {
+      deep: true,
+      handler: function (val) {
+        this.debouncedSave(val)
+      }
+    }
+  },
   created: function () {
+    this.debouncedSave = debounce(saveToLocalStorage, saveDelay)
     // Find maxId of todos
     let maxId = 0
     for (const todo of this.todos) {
