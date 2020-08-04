@@ -154,18 +154,10 @@ function caseFoldRemoveAccents(str) {
 
 const saveDelay = 2000
 
-function saveToLocalStorage(todos) {
-  const json = JSON.stringify(todos)
-  try {
-    localStorage.setItem('todos', json)
-    console.log(`SAVED! ${json}`)
-  }
-  catch (e) {
-    console.log(`Could not save, error code ${e.code}, name ${e.name}`)
-  }
-}
+
 
 import { priority } from '../todoModel.js'
+import { saveToLocalStorage } from '../storage.js'
 import draggable from 'vuedraggable'
 import debounce from 'lodash/debounce'
 
