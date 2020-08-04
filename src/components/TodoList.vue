@@ -226,15 +226,25 @@ export default {
     }
   },
   created: function () {
-    this.debouncedSave = debounce(saveToLocalStorage, saveDelay)
     // Find maxId of todos
     let maxId = 0
     for (const todo of this.todos) {
       if (todo.id > maxId) maxId = todo.id
     }
     this.maxId = maxId
+
+    // Debounced save to localStorage
+    this.debouncedSave = debounce(saveToLocalStorage, saveDelay)
+    window.addEventListener('beforeunload', this.onBeforeUnload)
+  },
+  beforeDestroy() {
+    window.removeEventListener('beforeunload', this.onBeforeUnload)
   },
   methods: {
+    onBeforeUnload() {
+      // this.debouncedSave('todos', this.todos)
+      this.debouncedSave.flush()
+    },
     // selectTodo: function (todo) {
     //   this.selectedId = todo.id
     // },
