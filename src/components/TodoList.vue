@@ -221,7 +221,7 @@ export default {
     todos: {
       deep: true,
       handler: function (val) {
-        this.debouncedSave(val)
+        this.debouncedSave('todos', val)
       }
     }
   },

@@ -20,7 +20,7 @@ export default {
   },
   data: function () {
     return {
-      todos: loadFromLocalStorage(),
+      todos: loadFromLocalStorage('todos'),
       key: 0
     }
   },

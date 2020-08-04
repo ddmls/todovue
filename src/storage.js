@@ -1,12 +1,12 @@
 import testData from './testData.js'
 
-const localStorageKey = 'todos'
+// const localStorageKey = 'todos'
 
 const storageHandlers = {}
 
-export function loadFromLocalStorage() {
+export function loadFromLocalStorage(key) {
   try {
-    const json = localStorage.getItem(localStorageKey)
+    const json = localStorage.getItem(key)
     if (json) {
       return JSON.parse(json)
     }
@@ -18,11 +18,11 @@ export function loadFromLocalStorage() {
   return testData
 }
 
-export function saveToLocalStorage(todos) {
+export function saveToLocalStorage(key, todos) {
   const json = JSON.stringify(todos)
   try {
-    localStorage.setItem(localStorageKey, json)
-    console.log(`SAVED! ${json}`)
+    localStorage.setItem(key, json)
+    console.log('SAVED!')
   }
   catch (e) {
     console.log(`Could not save, error code ${e.code}, name ${e.name}`)
