@@ -30,6 +30,7 @@ export function saveToLocalStorage(key, todos) {
 }
 
 // NOTE: There is one handler per key
+// A new handler for the same key overwrites the previous one
 // If we need many handlers per key (same list displayed many times) it must be key => [handler1, ...]
 
 export function registerStorageHandler(key, handler) {

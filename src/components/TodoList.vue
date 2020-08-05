@@ -243,11 +243,15 @@ export default {
   },
   methods: {
     onBeforeUnload() {
-      // this.debouncedSave(this.todosName, this.todos)
       this.debouncedSave.flush()
     },
     onStorage(newTodos) {
       this.todos = newTodos
+      // Skip the first automatically triggered save-after-load
+      const realDebouncedSave = this.debouncedSave
+      this.debouncedSave = function() {
+        this.debouncedSave = realDebouncedSave
+      }
     },
     // selectTodo: function (todo) {
     //   this.selectedId = todo.id
