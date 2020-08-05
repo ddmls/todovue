@@ -154,10 +154,8 @@ function caseFoldRemoveAccents(str) {
 
 const saveDelay = 2000
 
-
-
 import { priority } from '../todoModel.js'
-import { saveToLocalStorage } from '../storage.js'
+import { loadFromLocalStorage, saveToLocalStorage, registerStorageHandler, unregisterStorageHandler } from '../storage.js'
 import draggable from 'vuedraggable'
 import debounce from 'lodash/debounce'
 
@@ -165,14 +163,14 @@ export default {
   name: "TodoList",
   props: {
     msg: String,
-    todosSrc: Array,
+    todosName: String,
   },
   components: {
     draggable,
   },
   data: function () {
     return {
-      todos: this.todosSrc,
+      todos: loadFromLocalStorage(this.todosName),
       selectedId: null,
       editingId: null,
       filterBy: { text: "", done: null, minPriority: priority.NORMAL },
@@ -221,7 +219,7 @@ export default {
     todos: {
       deep: true,
       handler: function (val) {
-        this.debouncedSave('todos', val)
+        this.debouncedSave(this.todosName, val)
       }
     }
   },
@@ -236,14 +234,20 @@ export default {
     // Debounced save to localStorage
     this.debouncedSave = debounce(saveToLocalStorage, saveDelay)
     window.addEventListener('beforeunload', this.onBeforeUnload)
+    // Notified when there are changes in other tabs
+    registerStorageHandler(this.todosName, this.onStorage)
   },
   beforeDestroy() {
     window.removeEventListener('beforeunload', this.onBeforeUnload)
+    unregisterStorageHandler(this.todosName, this.onStorage)
   },
   methods: {
     onBeforeUnload() {
-      // this.debouncedSave('todos', this.todos)
+      // this.debouncedSave(this.todosName, this.todos)
       this.debouncedSave.flush()
+    },
+    onStorage(newTodos) {
+      this.todos = newTodos
     },
     // selectTodo: function (todo) {
     //   this.selectedId = todo.id

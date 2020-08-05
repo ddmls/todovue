@@ -29,8 +29,16 @@ export function saveToLocalStorage(key, todos) {
   }
 }
 
+// NOTE: There is one handler per key
+// If we need many handlers per key (same list displayed many times) it must be key => [handler1, ...]
+
 export function registerStorageHandler(key, handler) {
   storageHandlers[key] = handler
+}
+
+export function unregisterStorageHandler(key, handler) {
+  if (storageHandlers[key] === handler)
+    delete storageHandlers[key]
 }
 
 // Listen for storage save events on other tabs
