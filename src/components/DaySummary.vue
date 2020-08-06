@@ -2,7 +2,7 @@
   <header class="hero is-primary is-bold">
   <!-- <div class="container is-fluid"> -->
     <div class="hero-body">
-      <h1 class="title is-2"> {{ msg }} </h1>
+      <h1 class="title is-2 is-family-secondary"> {{ msg }} </h1>
       <h2 class="subtitle is-4"> {{ dateTimeFormat.format(new Date()) }} </h2>
     </div>
   <!-- </div> -->
