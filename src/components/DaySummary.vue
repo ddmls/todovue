@@ -46,21 +46,24 @@ export default {
   from {
     letter-spacing: inherit;
     opacity: 0;
+    margin-left: 10px;
   }
 
   to {
-    letter-spacing: .2rem;
-    opacity: 1;
+    // letter-spacing: .2rem;
+    // opacity: 1;
   }
 }
 
 @keyframes delayed-fadein {
   from {
     opacity: 0;
+    margin-left: -5px;
   }
 
   50% {
     opacity: 0;
+    margin-left: -5px;
   }
 
   to {
