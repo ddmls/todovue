@@ -353,4 +353,8 @@ div.panel-block:hover {
   width: 100%;
 }
 
+div.panel-block {
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+}
+
 </style>
