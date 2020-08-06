@@ -107,28 +107,30 @@
             {{ todo.id }} {{ todo.title }}
           </span>
 
-          <div class="todo-toolbox" v-show="todo.id === selectedId">
-            <a @click.stop="editTodo(todo)">
-              <span class="icon">
-                <i class="fas fa-edit has-text-black"></i>
-              </span>
-            </a>
-            <a @click.stop="todo.priority = todo.priority === priority.HIGH ? priority.NORMAL : priority.HIGH">
-              <span class="icon has-text-warning">
-                <i class="fas fa-star"></i>
-              </span>
-            </a>
-            <a @click.stop="todo.priority = todo.priority === priority.LOW ? priority.NORMAL : priority.LOW">
-              <span class="icon has-text-grey">
-                <i class="fas fa-thumbs-down"></i>
-              </span>
-            </a>
-            <a @click.stop="deleteTodo(todo)">
-              <span class="icon has-text-danger">
-                <i class="fas fa-trash"></i>
-              </span>
-            </a>
-          </div>
+          <transition name="fade">
+            <div class="todo-toolbox" v-show="todo.id === selectedId">
+              <a @click.stop="editTodo(todo)">
+                <span class="icon">
+                  <i class="fas fa-edit has-text-black"></i>
+                </span>
+              </a>
+              <a @click.stop="todo.priority = todo.priority === priority.HIGH ? priority.NORMAL : priority.HIGH">
+                <span class="icon has-text-warning">
+                  <i class="fas fa-star"></i>
+                </span>
+              </a>
+              <a @click.stop="todo.priority = todo.priority === priority.LOW ? priority.NORMAL : priority.LOW">
+                <span class="icon has-text-grey">
+                  <i class="fas fa-thumbs-down"></i>
+                </span>
+              </a>
+              <a @click.stop="deleteTodo(todo)">
+                <span class="icon has-text-danger">
+                  <i class="fas fa-trash"></i>
+                </span>
+              </a>
+            </div>
+          </transition>
 
         </template>
 
@@ -353,8 +355,20 @@ div.panel-block:hover {
   width: 100%;
 }
 
-div.panel-block {
-  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+// div.panel-block {
+//   transition: background-color 0.25s ease-out, color 0.25s ease-out;
+// }
+
+.fade-enter-active {
+  transition: opacity 1s ease;
+}
+
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 </style>
