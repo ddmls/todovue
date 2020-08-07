@@ -26,7 +26,7 @@
          </p>
         <p class="control">
           <a
-            class="button is-link is-outlined"
+            class="button is-link"
             @click="newTodo">
             <span class="icon is-small">
               <i class="fas fa-plus"></i>
@@ -105,7 +105,7 @@
               <i :class="todo.done ? 'far fa-check-circle has-text-success' : 'far fa-circle'"></i>
             </span>
             <span :class="todo.done && 'has-text-grey-light is-done'">
-              {{ todo.id }} {{ todo.title }}
+              {{ todo.title }}
             </span>
 
             <transition name="fade">
