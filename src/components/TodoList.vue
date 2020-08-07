@@ -2,7 +2,7 @@
   
   <!-- <div class="container is-fluid"> -->
 
-  <nav class="panel is-warning">
+  <nav class="panel is-primary">
     <p class="panel-heading">
       {{ msg }}
     </p>
@@ -78,7 +78,7 @@
       <transition-group type="transition" name="flip-list">
         <div v-for="todo in sortedTodos" :key="todo.id"
           class="panel-block"
-          :class="{ 'is-active': todo.id === selectedId, 'has-text-grey': todo.priority ===  priority.LOW, 'has-background-danger-light': todo.priority === priority.HIGH }"
+          :class="{ 'is-active': todo.id === selectedId, 'todo-priority-low': todo.priority ===  priority.LOW, 'todo-priority-high': todo.priority === priority.HIGH }"
           @click="!isEdited(todo) && checkTodo(todo)"
           @mouseover="selectedId = todo.id"
           @mouseout="selectedId = null"

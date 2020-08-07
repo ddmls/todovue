@@ -4,43 +4,22 @@
 // @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Roboto&display=swap');
 
+// Bulmaswatch theme variables, we'll override some later
+$bulmaswatch-import-font: false;
+@import "../node_modules/bulmaswatch/sandstone/_variables.scss";
+
 // Set your brand colors
-// $purple: #8A4D76;
-// $pink: #FA7C91;
-// $brown: #757763;
-// $beige-light: #D0D1CD;
-// $beige-lighter: #EFF0EB;
+$yellow: #f9ce0d;
 
 // Update Bulma's global variables
 $family-sans-serif: "Roboto", sans-serif;
 $family-primary: $family-sans-serif;
 $family-secondary: "Open Sans Condensed", sans-serif;
-// $grey-dark: $brown;
-// $grey-light: $beige-light;
-// $primary: $purple;
-// $link: $pink;
-// $widescreen-enabled: false;
-// $fullhd-enabled: false;
+$warning: $yellow;
 
 // Update some of Bulma's component variables
-// $body-background-color: $beige-lighter;
-// $control-border-width: 2px;
-// $input-border-color: transparent;
-// $input-shadow: none;
 
 // Import only what you need from Bulma
-// @import "../node_modules/bulma/sass/utilities/_all.sass";
-// @import "../node_modules/bulma/sass/base/_all.sass";
-// @import "../node_modules/bulma/sass/elements/button.sass";
-// @import "../node_modules/bulma/sass/elements/container.sass";
-// @import "../node_modules/bulma/sass/elements/title.sass";
-// @import "../node_modules/bulma/sass/form/_all.sass";
-// @import "../node_modules/bulma/sass/components/navbar.sass";
-// @import "../node_modules/bulma/sass/layout/hero.sass";
-// @import "../node_modules/bulma/sass/layout/section.sass";
-
-@import "../node_modules/bulmaswatch/sandstone/_variables.scss";
-
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/elements/_all.sass";
@@ -50,4 +29,20 @@ $family-secondary: "Open Sans Condensed", sans-serif;
 @import "../node_modules/bulma/sass/helpers/_all.sass";
 @import "../node_modules/bulma/sass/layout/_all.sass";
 
+// Bulmaswatch theme overrides, must come after bulma
 @import "../node_modules/bulmaswatch/sandstone/_overrides.scss";
+
+// Extra customizations
+
+.button {
+    text-transform: none;
+}
+
+.todo-priority-high {
+    @extend .has-background-warning-light;
+}
+
+.todo-priority-low {
+    @extend .has-text-grey;
+}
+
