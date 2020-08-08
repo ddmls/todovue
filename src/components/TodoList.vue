@@ -67,6 +67,12 @@
       >
       Θα δούμε
       </a>
+      <a
+        :class="{ 'is-active': someDone }"
+        @click="deleteDone"
+      >
+      Εκκαθάριση
+      </a>
     </p>
 
     <draggable
@@ -217,6 +223,9 @@ export default {
           }
         })
       }
+    },
+    someDone() {
+      return this.todos.some(todo => todo.done)
     }
   },
   watch: {
@@ -307,6 +316,9 @@ export default {
       }
       todo.done = !todo.done
       // this.selectedId = null
+    },
+    deleteDone() {
+      this.todos = this.todos.filter(todo => !todo.done)
     }
   }
 };
