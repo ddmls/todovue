@@ -2,7 +2,7 @@
   <div id="app">
     <DaySummary msg="Τι θα κάνω σήμερα"/>
     <section class="section">
-      <TodoList msg="Τεστ" todos-name='todos' />
+      <TodoList msg="Todo" todos-name='todos' />
     </section>
   </div>
 </template>
