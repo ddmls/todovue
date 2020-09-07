@@ -1,4 +1,6 @@
-# todo
+# Todo with Vue
+- Drag and drop reordering of items
+- Improved search for languages with accents
 
 ## Project setup
 ```
